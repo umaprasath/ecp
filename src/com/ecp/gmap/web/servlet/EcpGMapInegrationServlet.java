@@ -36,16 +36,11 @@ public class EcpGMapInegrationServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.out.println("the way  points values parameter "+ request.getParameter("waypointssave"));
+		// TODO Inject it throuh spring
 		RouteManager routeManager = new RouteManager();
 		Route route = new Route();
-		System.out.println("query is "+request.getParameter("query"));
 		route.setFrom((String)request.getParameter("from"));
-		System.out.println("the from is"+request.getParameter("from"));
 		route.setTo((String)request.getParameter("to"));
-		System.out.println("the from is"+request.getParameter("to"));
-		//System.out.println(routeManager.getRoute(route));
 		 response.getWriter().write(routeManager.getRoute(route));
 	}
 
@@ -53,18 +48,8 @@ public class EcpGMapInegrationServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub 
-		//waypoints_save
-		
 		String waypointsFromRequest = (String) request.getParameter("waypoints_save");
 		System.out.println("the way  points values are "+ waypointsFromRequest);
-		//JSONArray jsonArry = new JSONArray(). waypointsFromRequest;
-//		JSONObject  obj = (JSONObject)JSONValue.parse(waypointsFromRequest);
-//		JSONArray jsonArry = (JSONArray)obj.get("data");
-//		  System.out.println("======the 2nd element of array======");
-//		  //System.out.println(array.get(0));
-//		  System.out.println(((JSONObject)jsonArry.get(0)).get("lat")); 
-		//System.out.println(waypointsArray[0].toString());
 		  Route route  = new Route();
 		  route.setFrom(request.getParameter("from"));
 		  route.setTo(request.getParameter("to"));
@@ -81,11 +66,8 @@ public class EcpGMapInegrationServlet extends HttpServlet {
 			  routeManager.getRoute(route);
 			  
 		  }
-		 // System.out.println("contaisn "+ jsonArry.contains(((JSONObject)jsonArry.get(1))));
 		  request.getRequestDispatcher("/jsp/Routes.jsp").forward(request, response);
-		 
-			
-		
+
 	}
 
 }
