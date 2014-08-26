@@ -28,7 +28,6 @@ private static String dbUrl = "jdbc:mysql://127.13.160.2:3306/carpool";
 					"adams123");
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
-System.out.println("inside psvm");
 			while (rs.next()) {
 				dbtime = rs.getString(1);
 				customeremail = rs.getString("customer_name");

@@ -11,10 +11,6 @@ public class RouteManager {
 		System.out.println("the name is ::"+route.getFrom()); 
 		 RouteDao dao = new RouteDao();
 		 List<JSONObject>  jsonResponse = dao.read(route);
-		System.out.println("the string is :"+jsonResponse);
-		/*JSONLOVUtil jsonlovUtil = new JSONLOVUtil();
-		jsonlovUtil.add("data", jsonResponse);
-		System.out.println("the serialized array is :"+jsonlovUtil.serialize());*/
 		return jsonResponse.toString();
 	}
 	
@@ -24,9 +20,6 @@ public class RouteManager {
 		 RouteDao dao = new RouteDao();
 		 List<JSONObject>  jsonResponse = dao.readUserRides(route);
 		System.out.println("the string is :"+jsonResponse);
-		/*JSONLOVUtil jsonlovUtil = new JSONLOVUtil();
-		jsonlovUtil.add("data", jsonResponse);
-		System.out.println("the serialized array is :"+jsonlovUtil.serialize());*/
 		return jsonResponse.toString();
 	}
 	
@@ -36,8 +29,6 @@ public class RouteManager {
 		 RouteDao dao = new RouteDao();
 		 boolean  jsonResponse = dao.create(route);
 		System.out.println("the string is :"+jsonResponse);
-//		JSONLOVUtil jsonlovUtil = new JSONLOVUtil();
-//		jsonlovUtil.add("data", jsonResponse);
 		return jsonResponse;
 	}
 	
@@ -47,10 +38,6 @@ public class RouteManager {
 		System.out.println("the name is ::"+route.getFrom()); 
 		 RouteDao dao = new RouteDao();
 		 List<JSONObject>  jsonResponse = dao.readRideWithConnection(route,friends);
-		System.out.println("the string is :"+jsonResponse);
-		/*JSONLOVUtil jsonlovUtil = new JSONLOVUtil();
-		jsonlovUtil.add("data", jsonResponse);
-		System.out.println("the serialized array is :"+jsonlovUtil.serialize());*/
 		return jsonResponse.toString();
 	}
 	
@@ -59,8 +46,6 @@ public class RouteManager {
 		 RouteDao dao = new RouteDao();
 		 boolean  jsonResponse = dao.updatePoolRide(driverEmail,riderEmail);
 		System.out.println("the string is :"+jsonResponse);
-//		JSONLOVUtil jsonlovUtil = new JSONLOVUtil();
-//		jsonlovUtil.add("data", jsonResponse);
 		return jsonResponse;
 	}
 }

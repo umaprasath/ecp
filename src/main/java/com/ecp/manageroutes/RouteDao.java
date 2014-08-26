@@ -22,30 +22,24 @@ public class RouteDao {
 		List<JSONObject> jsonArray = new ArrayList<JSONObject>();
 		try {
 			stmt = con.createStatement();
-String[] subStrFrom = route.getFrom().split(",");
-String querySearchFrom = subStrFrom[0]+"%,"+subStrFrom[1].replace(")", "%)");
+			String[] subStrFrom = route.getFrom().split(",");
+			String querySearchFrom = subStrFrom[0]+"%,"+subStrFrom[1].replace(")", "%)");
 
-String[] subStrTo = route.getTo().split(",");
-String querySearchTo = subStrTo[0]+"%,"+subStrTo[1].replace(")", "%)");
-
-
-		String query = "Select * FROM ecp_route where from_lat >"+  Float.valueOf(subStrFrom[0].replace("(", "")) +" AND via_route like '%"+querySearchFrom+"%' AND via_route like '%"+ querySearchTo+"%'";
-		System.out.println("the query is ::"+query);
-		ResultSet rs = stmt.executeQuery(query); 
-		 ResultSetMetaData rsmd = rs.getMetaData();
-		 int columnCount = rsmd.getColumnCount();
-		  
-		System.out.println("json array is"+query);
-		while (rs.next()) {
-			System.out.println("the rs column value is :"+rsmd.getColumnLabel(1));
-			JSONObject jsonObject = new JSONObject();
-			for(int count=1; count<=columnCount;count++)
-			{
-			jsonObject.put(rsmd.getColumnLabel(count), rs.getString(count));
-			}
-			 jsonArray.add(jsonObject);
+			String[] subStrTo = route.getTo().split(",");
+			String querySearchTo = subStrTo[0]+"%,"+subStrTo[1].replace(")", "%)");
+			String query = "Select * FROM ecp_route where from_lat >"+  Float.valueOf(subStrFrom[0].replace("(", "")) +" AND via_route like '%"+querySearchFrom+"%' AND via_route like '%"+ querySearchTo+"%'";
+			ResultSet rs = stmt.executeQuery(query); 
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int columnCount = rsmd.getColumnCount();
+			while (rs.next()) {
+			
+				JSONObject jsonObject = new JSONObject();
+				for(int count=1; count<=columnCount;count++)
+				{
+				jsonObject.put(rsmd.getColumnLabel(count), rs.getString(count));
+				}
+				jsonArray.add(jsonObject);
 		} // end while
-System.out.println("json array is "+jsonArray.toString());
 		con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -81,11 +75,7 @@ System.out.println("json array is "+jsonArray.toString());
 		stmt.setFloat(7, route.getToLng());
 		stmt.setString(8, route.getCustomerEmail());
 	//		JSONObject jsonObject  = new JSONObject(customer);
-	 isSuccess =stmt.execute();
-		  
-		System.out.println("inserted"+isSuccess);
-		
-
+		isSuccess =stmt.execute();
 		con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -103,26 +93,21 @@ System.out.println("json array is "+jsonArray.toString());
 		List<JSONObject> anonymousJsonArray = new ArrayList<JSONObject>();
 		try {
 			stmt = con.createStatement();
-String[] subStrFrom = route.getFrom().split(",");
-String querySearchFrom = subStrFrom[0]+"%,"+subStrFrom[1].replace(")", "%)");
+				String[] subStrFrom = route.getFrom().split(",");
+				String querySearchFrom = subStrFrom[0]+"%,"+subStrFrom[1].replace(")", "%)");
 
-String[] subStrTo = route.getTo().split(",");
-String querySearchTo = subStrTo[0]+"%,"+subStrTo[1].replace(")", "%)");
+				String[] subStrTo = route.getTo().split(",");
+				String querySearchTo = subStrTo[0]+"%,"+subStrTo[1].replace(")", "%)");
 
 
-	//	String query = "Select * FROM ecp_route where from_lat >"+  Float.valueOf(subStrFrom[0].replace("(", "")) +" AND via_route like '%"+querySearchFrom+"%' AND via_route like '%"+ querySearchTo+"%'";
+			//	String query = "Select * FROM ecp_route where from_lat >"+  Float.valueOf(subStrFrom[0].replace("(", "")) +" AND via_route like '%"+querySearchFrom+"%' AND via_route like '%"+ querySearchTo+"%'";
+				//String query = "Select * FROM ecp_route er join ecp_customer ecid on er.route_id=ecid.route_id where er.from_lat >"+  Float.valueOf(subStrFrom[0].replace("(", "")) +" AND er.via_route like '%"+querySearchFrom+"%' AND er.via_route like '%"+ querySearchTo+"%'";
 
-//String query = "Select * FROM ecp_route er join ecp_customer ecid on er.route_id=ecid.route_id where er.from_lat >"+  Float.valueOf(subStrFrom[0].replace("(", "")) +" AND er.via_route like '%"+querySearchFrom+"%' AND er.via_route like '%"+ querySearchTo+"%'";
-
-String query = "Select * FROM ecp_route er  where er.from_lat >"+  Float.valueOf(subStrFrom[0].replace("(", "")) +" AND er.via_route like '%"+querySearchFrom+"%' AND er.via_route like '%"+ querySearchTo+"%'";
-System.out.println("the query is ::"+query);
-		ResultSet rs = stmt.executeQuery(query); 
-		 ResultSetMetaData rsmd = rs.getMetaData();
-		 int columnCount = rsmd.getColumnCount(); 
-		  
-		System.out.println("json array is"+query);
+				String query = "Select * FROM ecp_route er  where er.from_lat >"+  Float.valueOf(subStrFrom[0].replace("(", "")) +" AND er.via_route like '%"+querySearchFrom+"%' AND er.via_route like '%"+ querySearchTo+"%'";
+			ResultSet rs = stmt.executeQuery(query); 
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int columnCount = rsmd.getColumnCount(); 
 		while (rs.next()) {
-		//	System.out.println("the rs column value is :"+rsmd.getColumnLabel(1));
 			JSONObject jsonObject = new JSONObject();
 			boolean isFriendRequest =false;
 			for(int count=1; count<=columnCount;count++)
@@ -151,7 +136,6 @@ System.out.println("the query is ::"+query);
 			}
 		} // end while
 		jsonArray.addAll(anonymousJsonArray);
-System.out.println("json array is "+jsonArray.toString());
 		con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -173,18 +157,10 @@ System.out.println("json array is "+jsonArray.toString());
 	//	List<JSONObject> jsonArray = new ArrayList<JSONObject>();
 		try {
 		String query = "INSERT INTO ecp_pool_ride (driver_email,rider_email) VALUES (?,?);";
-		System.out.println("the connection is :"+con);
 		stmt = con.prepareStatement(query);
-		
 		stmt.setString(1, driverEmail);
 		stmt.setString(2, riderEmail);
-		
-	//		JSONObject jsonObject  = new JSONObject(customer);
-	 isSuccess =stmt.execute();
-		  
-		System.out.println("inserted"+isSuccess);
-		
-
+		isSuccess =stmt.execute();
 		con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -206,12 +182,9 @@ System.out.println("json array is "+jsonArray.toString());
 				"ecp_route er join ecp_pool_ride epr on er.customer_email = epr.rider_email	" +
 				"join ecp_pool_ride epr_1 on er.customer_email = epr_1.driver_email" +
 				" where epr.rider_email= '"+route.getCustomerEmail() +"' or epr_1.driver_email='"+ route.getCustomerEmail()+"'";
-		System.out.println("the query is ::"+query);
 		ResultSet rs = stmt.executeQuery(query); 
 		 ResultSetMetaData rsmd = rs.getMetaData();
 		 int columnCount = rsmd.getColumnCount();
-		  
-		System.out.println("json array is"+query);
 		while (rs.next()) {
 			System.out.println("the rs column value is :"+rsmd.getColumnLabel(1));
 			JSONObject jsonObject = new JSONObject();
@@ -221,7 +194,6 @@ System.out.println("json array is "+jsonArray.toString());
 			}
 			 jsonArray.add(jsonObject);
 		} // end while
-System.out.println("json array is "+jsonArray.toString());
 		con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
