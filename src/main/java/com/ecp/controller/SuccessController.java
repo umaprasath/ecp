@@ -38,10 +38,8 @@ public class SuccessController {
                                 }
                         }
                 }
-                System.out.println("inside success controller");
                 mv.addObject("profile", provider.getUserProfile());
                 mv.addObject("contacts", contactsList);
-              
 //                Map<String, Object> model = new HashMap<String, Object>();
 //                model.put("contacts", contactsList);
                 request.getSession().setAttribute("profile", provider.getUserProfile());
